@@ -1,44 +1,89 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import './App.css';
-import * as randomWords from 'random-words';
+import React from "react";
+import "./App.css";
+import "./custom.scss";
+import * as randomWords from "random-words";
 
 const colorList = [
-  'red', 'pink', 'purple', 'indigo', 'blue',
-  'cyan', 'lime', 'green', 'orange', 'brown', 'black'
+    "red",
+    "pink",
+    "purple",
+    "indigo",
+    "blue",
+    "cyan",
+    "lime",
+    "green",
+    "orange",
+    "brown",
+    "black",
 ];
 
 function App() {
+    const rows = 5;
+    const columns = 5;
+    const designCell = "p-2 m-1 col btn btn-lg btn-secondary";
+    const doubleClickFn = (a, b) => {
+        console.log(27, a, b);
+    };
+    const onClickFn = (a, b) => {
+        console.log(28, a, b);
+    };
+    const boxHtml = (data, key) => {
+        return (
+            <div
+                key={key}
+                className={designCell}
+                id={key}
+                onClick={onClickFn}
+                onDoubleClick={doubleClickFn}
+            >
+                {data}
+            </div>
+        );
+    };
 
-  const totalBoxes = 12;
-  const boxPerLine = 4;
+    const rowHtml = (data, key) => {
+        return (
+            <div key={key} className="row">
+                {[1, 2, 3, 4, 5].map(boxHtml)}
+            </div>
+        );
+    };
 
-  const d = [];
-  for (let i = 0; i < 12; i++) {
-    d[i] = {
-      word: randomWords(),
-      color: colorList[parseInt(Math.random() * 10)],
-      // index
+    const seperatorLines = (
+        <>
+            <p className="mt-4 border"></p>
+            <p className="mt-4"></p>
+            <p className="mt-4"></p>
+        </>
+    );
+
+    // Generator for list
+    const d = [[]];
+    for (let i = 0; i < rows * columns; i++) {
+        d[i] = {
+            word: randomWords(),
+            color: colorList[parseInt(Math.random() * 10)],
+        };
     }
-  }
 
-  // xs is total boxes and sm is boxes per row
-  const innerGrid = (obj, key) => {
-    const { word, color } = obj;
-    console.log(12, obj)
-    return <Grid key={key} item xs={totalBoxes} sm={boxPerLine}>
-      <Box bgcolor={color} color="black" p={3}>
-        {word}
-      </Box>
-    </Grid>;
-  }
+    const payaHtml = (
+        <div className="mt-4">
+            {seperatorLines}
+            <div className="d-flex">
+                <main role="main" className="inner cover">
+                    <div className="row p-1 m-1 border">
+                        <div className="col">{[1, 2, 3, 4, 5, 6].map(rowHtml)}</div>
+                    </div>
+                </main>
+            </div>
+            <div>
+                <ol></ol>
+            </div>
+            {seperatorLines}
+        </div>
+    );
 
-  return (
-    <Grid container spacing={2}>
-      {d.map(innerGrid)}
-    </Grid>
-  );
+    return payaHtml;
 }
 
 export default App;
