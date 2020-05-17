@@ -1,6 +1,14 @@
 # codenames
 a piss-off for the board game codenames
 
+
+serve Frontend : {
+    $ git clone https://github.com/gauti019/codenames
+    $ cd codenames/
+    $ npm start
+} 
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
